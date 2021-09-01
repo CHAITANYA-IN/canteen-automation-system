@@ -1,0 +1,2 @@
+cart = [];
+export default cart;
