@@ -1,0 +1,27 @@
+INSERT INTO items(name, image, price, description) VALUES ("Vada Pav","https://www.google.com/imgres?imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fmasala-dosa-21646814.jpg&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Fdosa.html&tbnid=-TzRapDDzs93WM&vet=12ahUKEwi_zMqfxJnwAhXOG3IKHVwwDhMQMygAegUIARDwAQ..i&docid=g67qLt5Zlx8hxM&w=800&h=394&q=dosa%20images&ved=2ahUKEwi_zMqfxJnwAhXOG3IKHVwwDhMQMygAegUIARDwAQ" , 30, "A deep fried potato dumpling placed inside a bread bun (pav) sliced almost in half through the middle");
+INSERT INTO items(name, image, price, description) VALUES ("Misal Pav", NULL, 50, "Misal (a spicy curry usually made from moth beans) and pav (a type of Indian bread roll).[2][3] The final dish is topped with farsan or sev, onions, lemon and coriander (cilantro)");
+INSERT INTO items(name, image, price, description) VALUES ("Pav Bhaji", NULL, 60, "A fast food dish from India consisting of a thick vegetable curry served with a soft bread roll. Vegetables in the curry may include potatoes, onions, carrots, chillies, peas, bell peppers, and tomatoes");
+INSERT INTO items(name, image, price, description) VALUES ("Veg. Biryani", NULL, 100, "A rice-based dish made with spices, rice (usually basmati) and vegetables");
+INSERT INTO items(name, image, price, description) VALUES ("Masala Dosa", NULL, 80, "A delicious plate made from rice, lentils, potato, fenugreek, ghee and curry leaves, and served with chutneys and sambar.");
+
+INSERT INTO customer(mail_id, first_name,middle_name,last_name,password,dept_name,deluxe)
+ values('amsharma@gmail.com', 'Arun','Mahendra','Sharma','ams','Computer',true);
+
+INSERT INTO customer(mail_id, first_name,middle_name,last_name,password,dept_name,deluxe)
+     values('ampatil@gmail.com', 'Akhil','Mahendra','Patil','amp','Computer',true);
+
+INSERT INTO menu VALUES(1, 25);
+INSERT INTO menu VALUES(2, 40);
+INSERT INTO menu VALUES(4, 60);
+INSERT INTO menu VALUES(5, 70);
+
+insert into past_orders(customer_id,bill,order_status,placing_time,completion_time,otp,suggestion,payment,transaction_id) values(1,20,'Complete','2021-04-22  12:30:23','2021-04-22 12:55:23',123456,"good food",'Online','d_123');
+insert into past_orders(customer_id,bill,order_status,placing_time,completion_time,otp,suggestion,payment,transaction_id) values(2,25,'Complete','2021-04-22  12:58:23','2021-04-22 1:13:05',123456,"Excellent",'Online','cb_234');
+
+insert into past_ordered_items(order_id,item_id,price,quantity) values(1,1,20,1), (2,1,20,1), (1,1,20,1), (1,4,60,1), (2,3,25,1);
+
+insert into live_orders(customer_id,bill,order_status,placing_time,otp,suggestion,payment,transaction_id) values(1,34,'Complete','2021-04-22 2:45:33',567543,"sushi could be better",'COD','s_345');
+insert into live_orders(customer_id,bill,order_status,placing_time,otp,suggestion,payment,transaction_id) values(2,34,'Complete','2021-04-22 3:45:33',567993,"good pulav",'COD','pl_145');
+
+insert into live_ordered_items(order_id,item_id,price,quantity) values(1,4,34,1);
+insert into live_ordered_items(order_id,item_id,price,quantity) values(2,2,34,1);
