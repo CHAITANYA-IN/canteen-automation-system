@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const { check, validationResult } = require("express-validator");
 
-const { db } = require("../database");
-const authenticator = require("../middlewares");
+const { db } = require("../database/database");
+const {authenticator} = require("../services/middlewares");
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authenticator, async (req, res) => {
   console.log("Items Request");
   results = await db.promise().query("SELECT * FROM items;");
   res.json(results[0]).status(200);
@@ -19,6 +19,17 @@ router.get("/:id", authenticator, async (req, res) => {
   if (results[0].length == 0) res.status(400).json({ message: "Bad Request" });
   else {
     res.json(results[0]).status(200);
+    console.log(results[0]);
+  }
+}); // Get details of specified item
+
+router.get("/:id/image", authenticator, async (req, res) => {
+  results = await db
+    .promise()
+    .query(`SELECT image FROM items where item_id=${req.params.id};`);
+  if (results[0].length == 0) res.status(400).json({ message: "Bad Request" });
+  else {
+    res.contentType("image/jpg").status(200);
     console.log(results[0]);
   }
 }); // Get details of specified item
@@ -47,6 +58,7 @@ router.post(
     }
 
     const { name, price, description } = req.body;
+    const image = req.files.image;
     try {
       const records = await db
         .promise()
@@ -56,13 +68,12 @@ router.post(
           .status(400)
           .json({ message: "Record already exists", item: records[0] });
       } else {
-        const result = await db
-          .promise()
-          .query(
-            `INSERT INTO items(name, price, description) VALUES ('${name}', ${price}, '${
-              description ? description : "null"
-            }');`
-          );
+        const result = await db.promise().query(
+          `INSERT INTO items(name, image, price, description) 
+            VALUES ('${name}', '${image}', ${price}, '${
+            description ? description : "null"
+          }');`
+        );
         if (result[0].affectedRows === 0) {
           res.status(400).json({ message: "Bad Insert parameters" });
         }
@@ -96,9 +107,13 @@ router.put(
   ],
   async (req, res) => {
     try {
+      console.log(req);
       result = await db
         .promise()
-        .query(`UPDATE items SET ? WHERE item_id=${req.params.id};`, req.body);
+        .query(
+          `UPDATE items SET image='${req.files.image}' ? WHERE item_id=${req.params.id};`,
+          req.body
+        );
       result[0].affectedRows == 0
         ? res.sendStatus(404)
         : res

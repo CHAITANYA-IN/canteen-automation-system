@@ -17,7 +17,7 @@ import {componentuser} from './api';
 import DetailsScreen from './src/views/screens/DetailsScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 var finame;
-export var finame;
+// export var finame;
 // const Profile = (navigation) => {
 //   const [details, setDetails] = React.useState([]);
 //   componentuser().then((d) => {

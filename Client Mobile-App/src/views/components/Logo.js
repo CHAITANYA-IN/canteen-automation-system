@@ -10,7 +10,7 @@ export default class Logo extends Component {
       <View style={styles.container}>
         <Image
           style={{width: 50, height: 60, marginTop: 45}}
-          source={require('C:\\Users\\Amey Makarand\\OneDrive\\Desktop\\FoodAppUIReactNative\\src\\assets\\login.png')}
+          source={require('../../assets/login.png')}
         />
         <Text style={styles.logotext}>Signin</Text>
       </View>

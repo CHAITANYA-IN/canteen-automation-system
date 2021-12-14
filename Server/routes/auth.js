@@ -1,15 +1,21 @@
 const { Router } = require("express");
-const passport = require("passport");
+
+const mailer = require("../services/mail");
+const { authenticator } = require("../services/middlewares");
 
 const router = Router();
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
+router.post("/login", [passport.authenticate("local")], (req, res) => {
   res.status(200).send(req.body);
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.sendStatus(200);
+
+
+router.post("/forgot", (req, res) => {});
+
+router.post("/mail", (req, res) => {
+  mailer(req.body.to, req.body.subject, req.body.content, "");
+  res.status(200).json({ message: "Sent" });
 });
 
 module.exports = router;

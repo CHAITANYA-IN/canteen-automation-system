@@ -1,17 +1,3 @@
-/*CREATE TABLE customer(
-  customer_id INT AUTO_INCREMENT,
-  first_name VARCHAR(50) NOT NULL,
-  middle_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  contact_no NUMERIC(10),
-  mail_id VARCHAR(50) NOT NULL,
-  dept_name ENUM('Computer','Electronic','Mechanical'),
-  deluxe BOOLEAN,
-  PRIMARY KEY(customer_id)
-);
-*/
-
 'use strict';
 import React, {Component} from 'react';
 import {

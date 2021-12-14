@@ -1,0 +1,80 @@
+GET http://localhost:3000
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "customer_id": "13",
+  "mail_id": "shingechaitanya@gmail.com",
+  "admin": 0
+}
+
+###
+PUT http://localhost:5000/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsX2lkIjoic2hpbmdlY2hhaXRhbnlhQGdtYWlsLmNvbSIsImFkbWluIjowLCJjdXN0b21lcl9pZCI6IjEzIiwiaWF0IjoxNjE5Njk4MDAyfQ._xwqbW9XWSSMzj4TFiQS0HLhL7tkr4boN1jKIJVJPs4
+
+{
+  "first_name":"Chaitanya",
+  "middle_name":"Bharat",
+  "last_name":"Shinge",
+  "mail_id":"shingechaitanya@gmail.com",
+  "contact_no":"9191919191",
+  "password": "Chaitanya@1234"
+}
+
+###
+POST http://localhost:5000/users/register/customer
+Content-Type: application/json
+
+{
+  "first_name":"Chaitanya",
+  "middle_name":"Bharat",
+  "last_name":"Shinge",
+  "mail_id":"shingechaitanya@gmail.com",
+  "contact_no":"9503769438",
+  "password": "Chaitanya@1234"
+}
+
+###
+GET http://localhost:5000/users
+
+###
+DELETE http://localhost:5000/users/12
+
+###
+POST http://localhost:5000/users/verify
+Content-Type: application/json
+
+{
+  "mail": "shingechaitanya@gmail.com"
+}
+
+###
+GET http://localhost:5000/users/details
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsX2lkIjoic2hpbmdlY2hhaXRhbnlhQGdtYWlsLmNvbSIsImFkbWluIjowLCJjdXN0b21lcl9pZCI6IjEzIiwiaWF0IjoxNjE5Njk4MDAyfQ._xwqbW9XWSSMzj4TFiQS0HLhL7tkr4boN1jKIJVJPs4
+
+
+###
+POST http://localhost:5000/orders
+Authorization: Bearer
+
+{
+  "bill": 2440,
+  "suggestion": "Make all spicy",
+  "paymentmode": 1,
+  "items": [
+    {
+        "id":1,
+        "price":20,
+        "quantity":2,
+    },
+    {
+        "id":4,
+        "price":60,
+        "quantity":40,
+    }
+  ]
+}

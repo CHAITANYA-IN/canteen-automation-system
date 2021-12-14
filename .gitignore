@@ -56,7 +56,7 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+Pods
 
 node_modules
 

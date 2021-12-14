@@ -1,50 +1,73 @@
-CREATE DATABASE canteen2;
+CREATE DATABASE canteen;
 
-USE canteen2;
+USE canteen;
 
 CREATE TABLE customer(
   customer_id INT AUTO_INCREMENT,
-  first_name VARCHAR(50) NOT NULL,
-  middle_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
+  first_name VARCHAR(20) NOT NULL,
+  middle_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
   password VARCHAR(100) NOT NULL,
-  contact_no NUMERIC(10),
-  mail_id VARCHAR(50) NOT NULL,
-  dept_name ENUM('Computer','Electronic','Mechanical'),
-  deluxe BOOLEAN,
-  PRIMARY KEY(customer_id)
+  contact_no VARCHAR(10) UNIQUE,
+  mail_id VARCHAR(50) NOT NULL UNIQUE,
+  verified BOOLEAN,
+  admin BOOLEAN,
+  PRIMARY KEY(customer_id, mail_id, contact_no)
 );
 
 CREATE TABLE items(
   item_id INT AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
-  image BLOB,
+  image TEXT,
   price INT NOT NULL,
   description TEXT,
   PRIMARY KEY(item_id)
+);
+
+CREATE TABLE menu(
+  item_id INT NOT NULL,
+  price INT NOT NULL,
+  CONSTRAINT fk_item3
+  FOREIGN KEY (item_id)  
+  REFERENCES items(item_id)  
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  PRIMARY KEY(item_id)
+);
+
+CREATE TABLE transactions (
+  transaction_id VARCHAR(256),
+  razorpay_order_id VARCHAR(256),
+  bank_transaction_id VARCHAR(256),
+  receipt VARCHAR(255),
+  PRIMARY KEY(transaction_id)
 );
 
 CREATE TABLE past_orders(
   order_id VARCHAR(256),
   customer_id INT NOT NULL,
   bill INT NOT NULL,
-  order_status ENUM('Complete', 'Placed', 'Delievered', 'Preparing') NOT NULL,
+  order_status ENUM('Complete', 'Placing', 'Placed', 'Delievered', 'Preparing') NOT NULL,
   placing_time DATETIME NOT NULL,
   completion_time DATETIME NOT NULL,
-  otp NUMERIC(6) NOT NULL,
   suggestion TEXT NOT NULL,
   payment ENUM('CoD', 'Online') NOT NULL,
-  transaction_id VARCHAR(50),
+  transaction_id VARCHAR(256),
   PRIMARY KEY(order_id),
   CONSTRAINT fk_customer3 
   FOREIGN KEY (customer_id)  
   REFERENCES customer(customer_id)  
   ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  CONSTRAINT fk_transaction2 
+  FOREIGN KEY (transaction_id)  
+  REFERENCES transactions(transaction_id)  
+  ON DELETE CASCADE
   ON UPDATE CASCADE
 );
 
 CREATE TABLE past_ordered_items(
-  order_id VARCHAR(256) NOT NULL,
+  order_id VARCHAR(256),
   item_id INT NOT NULL,
   price INT,
   quantity INT,
@@ -64,22 +87,27 @@ CREATE TABLE live_orders(
   order_id VARCHAR(256),
   customer_id INT NOT NULL,
   bill INT NOT NULL,
-  order_status ENUM('Complete', 'Placed', 'Delievered', 'Preparing') NOT NULL,
+  order_status ENUM('Complete', 'Placing', 'Placed', 'Delievered', 'Preparing') NOT NULL,
   placing_time DATETIME NOT NULL,
-  otp NUMERIC(6) NOT NULL,
+  otp VARCHAR(6),
   suggestion TEXT NOT NULL,
   payment ENUM('CoD', 'Online') NOT NULL,
-  transaction_id VARCHAR(50),
-  PRIMARY KEY(order_id),
+  transaction_id VARCHAR(256),
   CONSTRAINT fk_customer4  
   FOREIGN KEY (customer_id)  
   REFERENCES customer(customer_id)  
   ON DELETE CASCADE
-  ON UPDATE CASCADE
+  ON UPDATE CASCADE,
+  CONSTRAINT fk_transaction1  
+  FOREIGN KEY (transaction_id)  
+  REFERENCES transactions(transaction_id)  
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  PRIMARY KEY(order_id)
 );
 
 CREATE TABLE live_ordered_items(
-  order_id VARCHAR(256) NOT NULL,
+  order_id VARCHAR(256),
   item_id INT NOT NULL,
   price INT NOT NULL,
   quantity INT NOT NULL,
@@ -95,13 +123,3 @@ CREATE TABLE live_ordered_items(
   ON UPDATE CASCADE
 );
 
-CREATE TABLE menu(
-  item_id INT NOT NULL,
-  price INT NOT NULL,
-  CONSTRAINT fk_item3
-  FOREIGN KEY (item_id)  
-  REFERENCES items(item_id)  
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-  PRIMARY KEY(item_id)
-);
