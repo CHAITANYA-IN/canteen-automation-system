@@ -36,4 +36,4 @@ generateAccessToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
 };
 
-app.listen(PORT);
+app.listen(PORT+1);
