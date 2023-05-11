@@ -1,5 +1,9 @@
 # Canteen Automation System
 
+<p align="justify">
+The main aim of the system is to reduce the queuing delay at the canteen. This is helpful as students and teachers don’t need to wait for a long time to receive their orders. It is a group project. It involves api for storing, ordering, retrieving food items and a frontend mobile app allowing customers to view & order food items.
+</p>
+
 ## Description
 + ***server*** 
   + Directory contains source code for backend.
